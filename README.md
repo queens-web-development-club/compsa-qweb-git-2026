@@ -4,6 +4,8 @@ Get your name on the wall by opening your first pull request.
 
 **The wall:** https://queens-web-development-club.github.io/compsa-qweb-git-2026/
 
+**The slides:** https://queens-web-development-club.github.io/compsa-qweb-git-2026/slides/ (every demo works, so you can click through and practice). The source is in [`slides/`](slides/).
+
 The first half of the workshop happens in your own repo. This one starts at the **Pull Requests** slide: from there, follow [EXERCISES.md](EXERCISES.md), where every heading matches a slide. Stuck? Put your hand up, or look in "When it goes wrong" at the bottom of the exercises.
 
 ## Before you start

@@ -1,0 +1,638 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Q-Web · Git Workshop</title>
+  <meta name="description" content="A Q-Web workshop on Git and GitHub from zero: save every version of your work, sync it, undo anything, then branches, pull requests and a live page." />
+  <meta name="theme-color" content="#030607" />
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Q-Web · Git Workshop" />
+  <meta property="og:description" content="Never lose your work: Git and GitHub from zero." />
+  <meta name="twitter:card" content="summary" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Sans+Condensed:wght@600;700&display=swap" rel="stylesheet" />
+  <script type="module" crossorigin src="./assets/index-BiP7ZRG9.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-CqdkZ7Gf.css">
+</head>
+<body>
+
+  <div id="scanner-bg" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#s-welcome"><img src="./qweb-logo.png" alt="Q-Web" class="brand-logo" /></a>
+    <div class="meter" id="meter" aria-hidden="true"></div>
+  </header>
+
+  <nav class="line-sidebar line-sidebar--markers line-sidebar--scale-tick" id="sidenav" aria-label="Sections"></nav>
+
+  <main id="deck">
+
+    <!-- Narration for every screen lives in notes.js (press P), which also generates SCRIPT.md.
+         Everything typed or clicked here stays in this browser tab. Nothing is sent anywhere.
+         Set the shared repo in PRACTICE_REPO at the top of the workshop code in script.js. -->
+
+    <!-- ===== 1 · Welcome ===== -->
+    <section class="screen" id="s-welcome" data-name="Welcome">
+      <div class="screen-inner">
+        <h1 class="focus-title" data-type="Never Lose Your Work">Never Lose Your Work</h1>
+        <div class="code-motif" aria-hidden="true">&lt;/&gt;</div>
+        <p class="focus-lead">Tonight you learn the tool that remembers every version of everything, so you can <span class="grad">undo anything</span>.</p>
+      </div>
+      <p class="cue" aria-hidden="true">scroll to begin ↓</p>
+    </section>
+
+    <!-- ===== 2 · The Folder Everyone Has ===== -->
+    <section class="screen screen--left" id="s-why" data-name="Sound Familiar?">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Sound Familiar?">Sound Familiar?</h1>
+          <p class="shift-thesis">You already keep versions of your work. Just <span class="grad">by hand</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Flip it">
+          <span class="aside-label">Flip between them</span>
+          <div class="toggle" role="group" aria-label="Without or with Git">
+            <button class="toggle__btn" type="button" data-why="no" aria-pressed="true">Without Git</button>
+            <button class="toggle__btn" type="button" data-why="yes" aria-pressed="false">With Git</button>
+          </div>
+        </aside>
+
+        <div class="quad__left">
+          <span class="aside-label">What Git gives you</span>
+          <div class="tiles tiles--2"><div class="tile"><b>One copy</b><span>of every file</span></div><div class="tile"><b>Every change</b><span>with a note on why</span></div><div class="tile"><b>A way back</b><span>to any version</span></div><div class="tile"><b>A backup</b><span>safe online</span></div></div>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">my-project</span></div>
+              <div class="filelist" id="why-files"></div>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext" id="why-cap"></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 3 · Git and GitHub ===== -->
+    <section class="screen screen--left" id="s-words" data-name="Git vs GitHub">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Git vs GitHub">Git vs GitHub</h1>
+          <p class="shift-thesis">Two different things. <span class="grad">Everyone mixes them up.</span></p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Four words">
+          <p class="bigline">Git is <b>local</b>. GitHub is the <b>broadcast</b>.</p>
+        </aside>
+
+        <div class="quad__left">
+          <span class="aside-label">Four words for tonight</span>
+          <div class="tiles tiles--terms">
+            <div class="tile"><b>repo</b><span>a folder Git watches</span></div>
+            <div class="tile"><b>commit</b><span>one saved snapshot</span></div>
+            <div class="tile"><b>push</b><span>send it up to GitHub</span></div>
+            <div class="tile"><b>pull</b><span>bring it down from GitHub</span></div>
+          </div>
+        </div>
+
+        <div class="quad__stage">
+          <div class="hop" aria-label="Your laptop and GitHub, joined by push and pull">
+            <div class="hop__end">
+              <svg class="hop__icon" viewBox="0 0 64 48" aria-hidden="true"><rect x="11" y="5" width="42" height="28" rx="3"/><path d="M3 39h58l-4 5H7z"/></svg>
+              <span class="hop__k">Your laptop</span>
+              <b>Git</b>
+              <span>tracks every save, works offline</span>
+            </div>
+            <div class="hop__mid" aria-hidden="true">
+              <span class="hop__lab">git push</span>
+              <span class="hop__line"><i></i></span>
+              <span class="hop__line hop__line--back"><i></i></span>
+              <span class="hop__lab">git pull</span>
+            </div>
+            <div class="hop__end hop__end--far">
+              <svg class="hop__icon" viewBox="0 0 64 48" aria-hidden="true"><path d="M17 40h31a11 11 0 0 0 1-22 15 15 0 0 0-29-4A12 12 0 0 0 17 40z"/></svg>
+              <span class="hop__k">The internet</span>
+              <b>GitHub</b>
+              <span>your backup, and how you share</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 4 · Get Set Up ===== -->
+    <section class="screen screen--left" id="s-setup" data-name="Set Up">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Get Set Up">Get Set Up</h1>
+          <p class="shift-thesis">Do this once, and you never <span class="grad">do it again</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Your computer">
+          <span class="aside-label">No Git yet?</span>
+          <p class="navnote" id="os-note"></p>
+        </aside>
+
+        <div class="quad__left">
+          <div class="paths">
+            <div class="path path--here">
+              <ol class="path__steps">
+                <li><span class="where where--gh">GitHub</span> Sign in at <b>github.com</b>. No account? Make a free one.</li>
+                <li><span class="where where--code">VS Code</span> Open VS Code. Press <span class="key">Ctrl</span> + <span class="key">`</span> (Mac too). <em class="see">A terminal opens at the bottom. Every Terminal step tonight means this one.</em></li>
+                <li><span class="where where--term">Terminal</span> Type <b>git --version</b>, press Enter. <em class="see">You see a version number? Git is ready.</em></li>
+                <li><span class="where where--term">Terminal</span> Type the 5 lines on the right, with your own name and GitHub email. Enter after each. <em class="see">Nothing prints back. That's normal.</em></li>
+              </ol>
+              <div hidden><input type="text" id="set-name" /><input type="text" id="set-email" /></div>
+            </div>
+          </div>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span><span><b>Install not working?</b> On GitHub: Code &rarr; Codespaces &rarr; Create. Git in your browser.<br><b>Stuck?</b> Hand up, Zac comes to you.</span></p>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">step 4 &middot; type these in your terminal</span></div>
+              <button class="termcopy" type="button" id="set-cmds" data-copy=""><pre id="set-out"></pre><span class="termcopy__hint">click to copy</span></button>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext">Swap <b>Your Name</b> and <b>you@example.com</b> for yours. Keep the quotes.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 5 · The Three Boxes (simulator) ===== -->
+    <section class="screen screen--left" id="s-boxes" data-name="Three Boxes">
+      <div class="quad quad--wide">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Three Boxes">Three Boxes</h1>
+          <p class="shift-thesis">Press the buttons. Watch <span class="grad">where your work goes</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="The terminal">
+          <span class="aside-label">What the terminal says</span>
+          <pre class="term" id="box-term" aria-live="polite"></pre>
+        </aside>
+
+        <div class="quad__left">
+          <div class="simbtns">
+            <button class="simbtn" type="button" data-box="edit"><b>Edit README.md</b><span>add a line, save it</span></button>
+            <button class="simbtn" type="button" data-box="add"><b>git add .</b><span>pick what goes in the snapshot</span></button>
+            <button class="simbtn" type="button" data-box="commit"><b>git commit</b><span>take the snapshot, with a note</span></button>
+            <button class="simbtn" type="button" data-box="push"><b>git push</b><span>send it up to GitHub</span></button>
+          </div>
+          <button class="simreset" type="button" data-box="reset">Start over</button>
+        </div>
+
+        <div class="quad__stage">
+          <div class="boxes" aria-hidden="true">
+            <div class="box" data-boxid="work"><span class="box__k">Your folder</span><span class="box__sub">the files you edit</span><div class="box__items" id="box-work"></div></div>
+            <div class="box" data-boxid="stage"><span class="box__k">Staging</span><span class="box__sub">packed, ready to save</span><div class="box__items" id="box-stage"></div></div>
+            <div class="box" data-boxid="hist"><span class="box__k">History</span><span class="box__sub">saved on your laptop</span><div class="box__items" id="box-hist"></div></div>
+            <div class="box box--far" data-boxid="remote"><span class="box__k">GitHub</span><span class="box__sub">saved online</span><div class="box__items" id="box-remote"></div></div>
+          </div>
+          <p class="navnote boxes__note"><span class="mark" aria-hidden="true">&lt;/&gt;</span>Desk &rarr; packing box &rarr; shelf &rarr; storage. <b>Nothing moves on its own.</b> You&rsquo;ll practice this as we continue.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 6 · Your First Repo ===== -->
+    <section class="screen screen--left" id="s-first" data-name="First Repo">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="First Repo">First Repo</h1>
+          <p class="shift-thesis">Make it on GitHub. Bring it down <span class="grad">to your laptop</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Your username">
+          <span class="aside-label">Your GitHub username</span>
+          <label class="field"><span class="sr-only">Your GitHub username</span><input type="text" id="set-user" placeholder="your-username" autocomplete="off" spellcheck="false" /></label>
+          <p class="swapnote">In every command, swap <b>your-username</b> for your own GitHub username.</p>
+        </aside>
+
+        <div class="quad__left">
+          <ol class="steps">
+            <li><span class="where where--gh">GitHub</span> On github.com, click <span class="ui">+</span> (top right) &rarr; <span class="ui">New repository</span></li>
+            <li><span class="where where--gh">GitHub</span> Name it <b>git-practice</b>. Pick <span class="ui">Public</span>. Tick <span class="ui">Add a README</span>. Click <span class="ui ui--go">Create repository</span></li>
+            <li><span class="where where--term">Terminal</span> Type the 2 lines on the right, with your username. Enter after each. <em class="see">You see: done.</em></li>
+            <li><span class="where where--code">VS Code</span> <span class="ui">File &rarr; Open Folder</span> &rarr; <b>git-practice</b> &rarr; <span class="ui">Open</span>. Then <span class="key">Ctrl</span> + <span class="key">`</span> again.</li>
+            <li><span class="where where--term">Terminal</span> Type <b>git status</b>, Enter. <em class="see">You see: working tree clean. You're ready.</em></li>
+          </ol>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span>Real research? Choose <b>Private</b>.</p>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">your terminal</span></div>
+              <button class="termcopy termcopy--short" type="button" id="clone-cmds" data-copy=""><pre id="clone-out"></pre><span class="termcopy__hint">click to copy</span></button>
+              <pre class="term term--quiet">Cloning into 'git-practice'...
+done.
+
+<span class="k">$ git status</span>   <span class="c">run this once you've opened the folder</span>
+On branch main
+Your branch is up to date with 'origin/main'.
+
+nothing to commit, working tree clean</pre>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext">Ready means <b>working tree clean</b>.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 7 · The Daily Loop ===== -->
+    <section class="screen screen--left" id="s-loop" data-name="Daily Loop">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Daily Loop">Daily Loop</h1>
+          <p class="shift-thesis">Four commands. This is <span class="grad">90% of Git</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Try it">
+          <span class="aside-label">Try it now</span>
+          <ol class="ministeps ministeps--big"><li><span class="where where--code">VS Code</span> Click <b>README.md</b> on the left. Add a line. Save with <span class="key">Ctrl</span> + <span class="key">S</span> (Mac: <span class="key">Cmd</span> + <span class="key">S</span>)</li><li><span class="where where--term">Terminal</span> Type the 4 commands below, top to bottom. Enter after each.</li><li><span class="where where--gh">GitHub</span> Refresh your git-practice page. <em class="see">Your line is there.</em></li></ol>
+        </aside>
+
+        <div class="quad__left">
+          <div class="loop">
+            <div class="loop__row"><button class="try try--code" type="button" data-copy="git status">git status</button><span>what changed? <b>always safe</b></span></div>
+            <div class="loop__row"><button class="try try--code" type="button" data-copy="git add .">git add .</button><span>pack it</span></div>
+            <div class="loop__row"><button class="try try--code" type="button" id="loop-commit" data-copy="git commit -m &quot;Add me to the README&quot;">git commit -m "Add me to the README"</button><span>save it, with a note</span></div>
+            <div class="loop__row"><button class="try try--code" type="button" data-copy="git push">git push</button><span>back it up &middot; <b>first time: sign in</b></span></div>
+          </div>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">git log --oneline</span></div>
+              <pre class="term term--log" id="msg-log"></pre>
+              <div class="msgpick">
+                <span class="aside-label">After a few sessions, which do you want to read?</span>
+                <div class="toggle" role="group" aria-label="Commit message style">
+                  <button class="toggle__btn" type="button" data-msg="bad" aria-pressed="true">Lazy notes</button>
+                  <button class="toggle__btn" type="button" data-msg="good" aria-pressed="false">Good notes</button>
+                </div>
+              </div>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext" id="msg-cap"></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 8 · Two Computers (simulator) ===== -->
+    <section class="screen screen--left" id="s-sync" data-name="Two Computers">
+      <div class="quad quad--wide">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Two Computers">Two Computers</h1>
+          <p class="shift-thesis">Your laptop and the lab machine. <span class="grad">Pull when you sit down. Push when you get up.</span></p>
+        </div>
+
+        <aside class="quad__aside" aria-label="The terminal">
+          <span class="aside-label">What the terminal says</span>
+          <pre class="term" id="sync-term" aria-live="polite"></pre>
+        </aside>
+
+        <div class="quad__left">
+          <span class="aside-label">Try it</span>
+          <ol class="steps">
+            <li>Laptop: <b>commit</b></li>
+            <li>Lab: <b>commit</b>, then <b>push</b></li>
+            <li>Laptop: <b>push</b>. Refused!</li>
+            <li>Laptop: <b>pull</b>, then <b>push</b></li>
+          </ol>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span><b>Refused isn't broken.</b> Git is protecting someone's work.</p>
+          <button class="simreset" type="button" id="sync-reset">Start over</button>
+        </div>
+
+        <div class="quad__stage">
+          <div class="syncs">
+            <div class="sync">
+              <span class="box__k">Laptop</span>
+              <div class="box__items" id="sync-laptop"></div>
+              <div class="sync__btns"><button type="button" data-sync="laptop:commit">commit</button><button type="button" data-sync="laptop:push">push</button><button type="button" data-sync="laptop:pull">pull</button></div>
+            </div>
+            <div class="sync sync--mid">
+              <span class="box__k">GitHub</span>
+              <div class="box__items" id="sync-remote"></div>
+            </div>
+            <div class="sync">
+              <span class="box__k">Lab machine</span>
+              <div class="box__items" id="sync-lab"></div>
+              <div class="sync__btns"><button type="button" data-sync="lab:commit">commit</button><button type="button" data-sync="lab:push">push</button><button type="button" data-sync="lab:pull">pull</button></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 9 · Branches and Pull Requests ===== -->
+    <section class="screen screen--left" id="s-branch" data-name="Branches">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Branches">Branches</h1>
+          <p class="shift-thesis">Try something risky <span class="grad">without touching what works</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="The command">
+          <span class="aside-label">Step through it</span>
+          <div class="branchbtns">
+            <button class="toggle__btn" type="button" id="br-prev">Back</button>
+            <button class="toggle__btn toggle__btn--go" type="button" id="br-next">Next step</button>
+          </div>
+          <button class="try try--code" type="button" id="br-cmd" data-copy=""></button>
+        </aside>
+
+        <div class="quad__left">
+          <div class="tiles tiles--terms">
+            <div class="tile"><b>branch</b><span>a side copy of your timeline</span></div>
+            <div class="tile"><b>pull request</b><span>asking to merge it back</span></div>
+          </div>
+          <span class="aside-label why-tells">When to branch</span>
+          <div class="tiles tiles--3"><div class="tile"><b>Solo</b><span>main is fine</span></div><div class="tile"><b>Team</b><span>always</span></div><div class="tile"><b>Risky idea</b><span>branch it</span></div></div>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url" id="br-where">on main</span></div>
+              <div class="graph"><svg id="br-svg" viewBox="0 0 760 250" role="img" aria-label="A timeline of commits with a side branch"></svg></div>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext" id="br-cap"></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 10 · Your First Pull Request ===== -->
+    <section class="screen screen--left" id="s-pr" data-name="Pull Requests">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Pull Requests">Pull Requests</h1>
+          <p class="shift-thesis">Everyone in this room, <span class="grad">one shared repo</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="The shared repo">
+          <span class="aside-label">The shared repo</span>
+          <p class="prwall-top"><span class="prrepo-k">The wall</span><b>queens-web-development-club.github.io/compsa-qweb-git-2026</b></p>
+          <div class="prrepo-row"><svg class="qr" role="img" aria-label="QR code for the shared repo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 41 41" shape-rendering="crispEdges"><path fill="#FFFFFF" d="M0 0h41v41H0z"/><path stroke="#030607" d="M2 2.5h7m5 0h2m2 0h1m1 0h1m3 0h1m1 0h1m1 0h3m1 0h7M2 3.5h1m5 0h1m1 0h2m4 0h5m4 0h1m3 0h1m2 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m2 0h2m4 0h2m2 0h1m4 0h1m2 0h2m1 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m2 0h2m2 0h1m4 0h1m4 0h2m1 0h2m2 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h2m1 0h1m1 0h2m1 0h1m1 0h2m1 0h3m1 0h3m2 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m3 0h1m1 0h3m2 0h1m1 0h1m2 0h2m1 0h3m2 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M14 9.5h2m1 0h4m1 0h1m3 0h3m1 0h1M2 10.5h1m1 0h1m1 0h1m1 0h1m2 0h1m1 0h3m2 0h1m1 0h1m4 0h3m1 0h2m3 0h1m2 0h1M5 11.5h1m1 0h1m1 0h2m4 0h1m1 0h2m1 0h2m4 0h1m3 0h1m1 0h1m5 0h1M3 12.5h1m1 0h1m1 0h3m3 0h1m1 0h4m7 0h2m3 0h2m1 0h5M2 13.5h2m5 0h2m3 0h3m1 0h2m1 0h1m1 0h2m2 0h4m1 0h2m3 0h1M2 14.5h2m1 0h1m1 0h3m1 0h2m1 0h1m1 0h4m3 0h1m1 0h3m2 0h3m4 0h2M4 15.5h4m1 0h1m2 0h1m1 0h1m7 0h3m1 0h2m3 0h2m5 0h1M2 16.5h2m1 0h5m2 0h1m1 0h3m1 0h2m4 0h1m2 0h1m2 0h1m1 0h2m2 0h3M4 17.5h1m1 0h2m1 0h1m1 0h1m4 0h3m2 0h8m3 0h1m1 0h1m2 0h1M3 18.5h1m1 0h2m1 0h4m1 0h1m8 0h1m1 0h1m1 0h2m2 0h4m1 0h1m1 0h1M5 19.5h2m4 0h3m1 0h3m3 0h6m3 0h3m2 0h1m2 0h1M5 20.5h1m2 0h1m3 0h1m1 0h1m1 0h1m2 0h1m1 0h3m1 0h2m6 0h2m2 0h2M3 21.5h3m1 0h1m1 0h2m4 0h1m1 0h1m1 0h2m1 0h4m1 0h2m1 0h1m3 0h2m1 0h1M2 22.5h1m2 0h1m1 0h2m1 0h1m2 0h2m1 0h1m2 0h1m1 0h3m2 0h3m1 0h3M5 23.5h2m2 0h4m1 0h2m2 0h3m1 0h1m3 0h1m3 0h1m1 0h2m1 0h1m1 0h2M3 24.5h1m1 0h1m1 0h4m2 0h2m3 0h1m1 0h1m1 0h2m4 0h1m3 0h2m2 0h3M2 25.5h3m1 0h1m2 0h1m2 0h1m5 0h5m2 0h6m3 0h1m3 0h1M2 26.5h1m1 0h1m1 0h1m1 0h2m1 0h1m1 0h6m1 0h1m6 0h1m4 0h1m2 0h1m2 0h1M4 27.5h1m6 0h1m3 0h1m1 0h5m1 0h1m1 0h1m2 0h1m1 0h3m3 0h3M2 28.5h1m1 0h3m1 0h6m2 0h3m1 0h1m5 0h2m3 0h3m1 0h1m1 0h2M3 29.5h1m1 0h3m2 0h1m3 0h3m1 0h2m1 0h1m1 0h3m1 0h3m1 0h1m2 0h1m3 0h1M2 30.5h1m5 0h2m1 0h2m1 0h1m1 0h4m2 0h2m2 0h2m2 0h5m2 0h1M10 31.5h2m1 0h3m2 0h1m3 0h2m2 0h3m1 0h1m3 0h2m1 0h2M2 32.5h7m2 0h2m3 0h1m2 0h1m4 0h1m4 0h2m1 0h1m1 0h2m1 0h2M2 33.5h1m5 0h1m3 0h1m1 0h1m2 0h2m2 0h7m2 0h1m3 0h2M2 34.5h1m1 0h3m1 0h1m1 0h2m3 0h2m4 0h2m1 0h1m2 0h2m1 0h6m1 0h1M2 35.5h1m1 0h3m1 0h1m2 0h1m2 0h1m1 0h2m3 0h5m1 0h1m1 0h1m3 0h3m2 0h1M2 36.5h1m1 0h3m1 0h1m1 0h1m3 0h2m5 0h4m3 0h1m5 0h2m2 0h1M2 37.5h1m5 0h1m2 0h4m1 0h2m1 0h2m1 0h2m1 0h4m1 0h1m1 0h3m2 0h1M2 38.5h7m1 0h2m1 0h1m1 0h1m2 0h2m1 0h5m1 0h1m1 0h4m4 0h2"/></svg><div><span class="prrepo-k">Scan, or go to</span><a class="prrepo" id="pr-repo" href="https://github.com/queens-web-development-club/compsa-qweb-git-2026" target="_blank" rel="noopener"></a></div></div>
+          <button class="linkbtn" type="button" id="pr-user-jump" hidden>Change it</button>
+        </aside>
+
+        <div class="quad__left">
+          <ol class="steps">
+            <li><span class="where where--gh">GitHub</span> Open the shared repo (QR or link above). Click <span class="ui">Fork</span> (top right) &rarr; <span class="ui ui--go">Create fork</span></li>
+            <li><span class="where where--term">Terminal</span> Type <b>part 1</b> on the right, with your username. Enter after each line.</li>
+            <li><span class="where where--code">VS Code</span> <span class="ui">File &rarr; Open Folder</span> &rarr; <b>compsa-qweb-git-2026</b>. Open <b id="pr-file">members/you.md</b>, fill in the 3 lines, save.</li>
+            <li><span class="where where--term">Terminal</span> Press <span class="key">Ctrl</span> + <span class="key">`</span> if it closed. Type <b>part 2</b>.</li>
+            <li><span class="where where--gh">GitHub</span> Go to your fork. Click <span class="ui">Compare &amp; pull request</span> &rarr; <span class="ui ui--go">Create pull request</span> <em class="see">Soon your name is on the wall.</em></li>
+          </ol>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span><b>Fork</b> = your own copy, on GitHub.</p>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">your terminal</span></div>
+              <div class="prparts">
+                <button class="termcopy termcopy--short" type="button" id="pr-one" data-copy=""><span class="termcopy__k">Part 1 &middot; download and branch</span><pre id="pr-one-out"></pre><span class="termcopy__hint">click to copy</span></button>
+                <button class="termcopy termcopy--short" type="button" id="pr-two" data-copy=""><span class="termcopy__k">Part 2 &middot; save and send</span><pre id="pr-two-out"></pre><span class="termcopy__hint">click to copy</span></button>
+              </div>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext">A check tells you if anything is off. Once merged, you're on the wall.<b class="prwall" id="pr-wall" hidden></b></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 11 · Merge Conflicts ===== -->
+    <section class="screen screen--left" id="s-conflict" data-name="Conflicts">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Conflicts">Conflicts</h1>
+          <p class="shift-thesis">Not a disaster. Git is <span class="grad">asking you a question</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Choose a version">
+          <span class="aside-label">Which line do you want?</span>
+          <div class="toggle" role="group" aria-label="Choose how to resolve the conflict">
+            <button class="toggle__btn" type="button" data-fix="mine" aria-pressed="false">Mine</button>
+            <button class="toggle__btn" type="button" data-fix="theirs" aria-pressed="false">GitHub's</button>
+            <button class="toggle__btn" type="button" data-fix="both" aria-pressed="false">Both</button>
+          </div>
+        </aside>
+
+        <div class="quad__left">
+          <span class="aside-label">Make one on purpose</span>
+          <ol class="steps">
+            <li><span class="where where--term">Terminal</span> Type <b>git switch main</b>, Enter.</li>
+            <li><span class="where where--gh">GitHub</span> In your fork, open <b>conflict.txt</b>, click the pencil, change <b>(change this line)</b> to any language, <span class="ui ui--go">Commit changes</span></li>
+            <li><span class="where where--code">VS Code</span> Open <b>conflict.txt</b>. Change that same line to a different language. Save.</li>
+            <li><span class="where where--term">Terminal</span> Type <b>git add .</b> then <b>git commit -m "mine"</b> then <b>git pull</b> <em class="see">You see: CONFLICT. Good, that's the point.</em></li>
+            <li><span class="where where--code">VS Code</span> In <b>conflict.txt</b>, keep the line you want. Delete the <b>&lt;&lt;&lt;</b>, <b>===</b> and <b>&gt;&gt;&gt;</b> lines. Save.</li>
+            <li><span class="where where--term">Terminal</span> Type <b>git add .</b> then <b>git commit -m "fixed"</b> then <b>git push</b></li>
+          </ol>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span>Way out: <b>git merge --abort</b></p>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">conflict.txt</span></div>
+              <pre class="diff diff--big" id="fix-file"></pre>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext" id="fix-cap"></span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 12 · Undo Anything ===== -->
+    <section class="screen screen--left" id="s-undo" data-name="Undo">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Undo Anything">Undo Anything</h1>
+          <p class="shift-thesis">The most useful skill tonight. <span class="grad">What went wrong?</span></p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Try it">
+          <span class="aside-label">Try it now</span>
+          <ol class="ministeps"><li><span class="where where--code">VS Code</span> Open <b>README.md</b>. Delete everything. Save.</li><li><span class="where where--term">Terminal</span> Type <b>git restore README.md</b>, Enter.</li><li><span class="where where--code">VS Code</span> Look at <b>README.md</b>. <em class="see">It's back.</em></li></ol>
+        </aside>
+
+        <div class="quad__left">
+          <div class="simbtns simbtns--tall" id="undo-btns"></div>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">the fix</span></div>
+              <div class="fix">
+                <button class="termcopy termcopy--short" type="button" id="undo-cmd" data-copy=""><pre id="undo-out"></pre><span class="termcopy__hint">click to copy</span></button>
+                <p class="fix__what" id="undo-what"></p>
+                <p class="fix__tag" id="undo-tag"></p>
+              </div>
+            </div>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 13 · What Stays Out ===== -->
+    <section class="screen screen--left" id="s-ignore" data-name="Keep It Out">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Keep It Out">Keep It Out</h1>
+          <p class="shift-thesis">Not everything belongs in Git. <span class="grad">Sort these.</span></p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Your .gitignore">
+          <span class="aside-label">Your .gitignore, live</span>
+          <button class="termcopy termcopy--short" type="button" id="ign-copy" data-copy=""><pre id="ign-out"></pre><span class="termcopy__hint">click to copy</span></button>
+        </aside>
+
+        <div class="quad__left">
+          <span class="aside-label">Never commit</span>
+          <div class="tiles tiles--2"><div class="tile"><b>Secrets</b><span>keys and passwords</span></div><div class="tile"><b>People's data</b><span>check your ethics approval</span></div><div class="tile"><b>Huge files</b><span>GitHub stops at 100 MB</span></div><div class="tile"><b>Generated files</b><span>outputs and packages</span></div></div>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span><b>Pushed a key?</b> Change the key. History remembers.</p>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">commit it, or keep it out?</span></div>
+              <div class="sorter" id="ign-rows"></div>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext" id="ign-cap">Choose for each file. The reason appears when you do.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 14 · Git And Your AI ===== -->
+    <section class="screen screen--left" id="s-ai" data-name="Git + AI">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Git + Your AI">Git + Your AI</h1>
+          <p class="shift-thesis">Commit first. Let the AI work. <span class="grad">Read what it did.</span></p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Decide">
+          <span class="aside-label">You decide</span>
+          <div class="toggle" role="group" aria-label="Keep or undo the AI's change">
+            <button class="toggle__btn" type="button" data-ai="keep" aria-pressed="false">Keep it</button>
+            <button class="toggle__btn" type="button" data-ai="bin" aria-pressed="false">Bin it</button>
+          </div>
+          <pre class="term term--short" id="ai-term">Read the change, then choose.</pre>
+        </aside>
+
+        <div class="quad__left">
+          <ol class="steps steps--big">
+            <li><b>Commit</b></li>
+            <li><b>Let the AI work</b></li>
+            <li><b>git diff</b>, and read it</li>
+            <li><b>Keep it</b> or <b>bin it</b></li>
+          </ol>
+          <p class="path__bar"><span class="mark" aria-hidden="true">&lt;/&gt;</span>Git makes AI <b>safe to try</b>.</p>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url">git diff &middot; what the AI changed</span></div>
+              <pre class="diff" id="ai-diff"></pre>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext" id="ai-cap">The AI said it "cleaned up" your code. Look at the red line. It quietly removed a filter. Would you have noticed?</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 15 · Put It Online ===== -->
+    <section class="screen screen--left" id="s-web" data-name="Online">
+      <div class="quad">
+        <div class="quad__head">
+          <h1 class="focus-title focus-title--left" data-type="Put It Online">Put It Online</h1>
+          <p class="shift-thesis">One more push and your repo is <span class="grad">a live website</span>.</p>
+        </div>
+
+        <aside class="quad__aside" aria-label="Your page text">
+          <span class="aside-label">What should your page say?</span>
+          <label class="field"><span class="sr-only">Your page's headline</span><input type="text" id="web-line" value="Hello, I just shipped this with Git." autocomplete="off" spellcheck="false" maxlength="60" /></label>
+        </aside>
+
+        <div class="quad__left">
+          <ol class="steps">
+            <li><span class="where where--code">VS Code</span> In git-practice, make a new file called <b>index.html</b>. Type this in, save.</li>
+          </ol>
+          <button class="try try--code try--wrap" type="button" id="web-html" data-copy=""></button>
+          <ol class="steps" start="2" style="counter-reset:st 1">
+            <li><span class="where where--term">Terminal</span> Type <b>git add .</b> then <b>git commit -m "my page"</b> then <b>git push</b></li>
+            <li><span class="where where--gh">GitHub</span> On your git-practice page: <span class="ui">Settings</span> (top) &rarr; <span class="ui">Pages</span> (left side)</li>
+            <li><span class="where where--gh">GitHub</span> Under Branch, pick <span class="ui">main</span> &rarr; <span class="ui ui--go">Save</span></li>
+            <li><span class="where where--gh">GitHub</span> Wait a minute, refresh. <em class="see">Your link shows at the top. Open it.</em></li>
+          </ol>
+        </div>
+
+        <div class="quad__stage">
+          <figure class="shot">
+            <div class="shot__frame">
+              <div class="shot__bar"><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__dot"></span><span class="shot__url" id="web-url"></span></div>
+              <div class="webpage"><h2 id="web-out"></h2></div>
+            </div>
+            <figcaption class="shot__cap"><span class="shot__captext">Free. Every push updates it. Public repos only.</span></figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 16 · Before You Go ===== -->
+    <section class="screen" id="s-close" data-name="Close">
+      <div class="screen-inner close-inner finish">
+        <h1 class="focus-title" data-type="Before You Go">Before You Go</h1>
+        <p class="focus-lead">You came in with final_v2. You leave with <span class="grad">history</span>.</p>
+
+        <div class="finish__grid">
+          <div class="finish__have">
+            <span class="close-card__label">The whole workflow</span>
+            <div class="cheat">
+              <button class="try try--code" type="button" data-copy="git pull">git pull</button><span>sit down</span>
+              <button class="try try--code" type="button" data-copy="git status">git status</button><span>what changed?</span>
+              <button class="try try--code" type="button" data-copy="git add .">git add .</button><span>pack it</span>
+              <button class="try try--code" type="button" data-copy="git commit -m &quot;&quot;">git commit -m "..."</button><span>save it</span>
+              <button class="try try--code" type="button" data-copy="git push">git push</button><span>back it up</span>
+            </div>
+          </div>
+
+          <div class="finish__side">
+            <div class="panel panel--accent finish__hw">
+              <span class="close-card__label">This week</span>
+              <p>Pick one real project of yours. Add a .gitignore, put it in a repo, and make your first real commit. Use it for a week.</p>
+            </div>
+            <div class="finish__next">
+              <span class="close-card__label">Up next</span>
+              <p>How to use Git in your research, led by one of the grad students. Stay for it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="endprompt">
+          <span class="endprompt__label">Your rescue prompt &middot; click to copy</span>
+          <button class="try" type="button" data-copy="I ran [the command] and Git said: [paste the message]. Explain what it means in plain English, then tell me the safest way to fix it. Give me the exact commands and warn me before anything that could lose my work.">I ran ___ and Git said ___. Explain it in plain English, then give me the safest fix, and warn me before anything that could lose my work.</button>
+          <p class="endprompt__note">Paste it into any AI the next time Git scares you. Then read what it tells you before you run it.</p>
+        </div>
+
+        <p class="close-sign"><span class="mark" aria-hidden="true">&lt;/&gt;</span>Want more? Q-Web meets Thursdays at 6pm in Kin 100.</p>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
